@@ -17,10 +17,10 @@ import static org.junit.Assert.assertNotNull;
 
 public class QencodeClientTest {
 
-    public static final String TEST_API_KEY = "5a2a846a26ace";
-    public static final String TEST_TRANSCODING_PROFILE_ID = "5a2a846a26e88";
-    public static final String TEST_VIDEO_URL = "https://qa.qencode.com/static/1.mp4";
-    //public static final String TEST_TRANSFER_METHOD_ID = "5a2a846a26ace";
+    public static final String TEST_API_KEY = "insert_your_api_key";
+    public static final String TEST_TRANSCODING_PROFILE_ID = "insert_your_transcoding_profile_id";
+    public static final String TEST_VIDEO_URL = "insert_your_video_url";
+    //public static final String TEST_TRANSFER_METHOD_ID = "your_transfer_method_id";
 
     @Test
     public void testSimpleTranscode() throws QencodeException, UnsupportedEncodingException, InterruptedException {
