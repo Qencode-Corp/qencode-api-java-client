@@ -5,6 +5,7 @@ import com.qencode.api.java.client.QencodeException;
 import com.qencode.api.java.client.response.StartEncodeResponse;
 import com.qencode.api.java.client.response.StatusResponse;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
@@ -102,19 +103,19 @@ public class TranscodingTask {
     }
 
     /**
-     * Output path variables
+     * Output path variables map
      */
-    private String outputPathVariables;
+    private Map<String, String> outputPathVariables;
     /**
      * {@link TranscodingTask#outputPathVariables}
      */
-    public String getOutputPathVariables() {
+    public Map<String, String> getOutputPathVariables() {
         return outputPathVariables;
     }
     /**
      * {@link TranscodingTask#outputPathVariables}
      */
-    public void setOutputPathVariables(String outputPathVariables) {
+    public void setOutputPathVariables(Map<String, String> outputPathVariables) {
         this.outputPathVariables = outputPathVariables;
     }
 
@@ -147,7 +148,7 @@ public class TranscodingTask {
      * @throws UnsupportedEncodingException
      * @throws QencodeException
      */
-    public StartEncodeResponse start() throws UnsupportedEncodingException, QencodeException {
+    public StartEncodeResponse start() throws IOException, QencodeException {
         Map<String, String> params = new HashMap<String, String>();
         params.put("task_token", taskToken);
         params.put("uri", uri);
@@ -157,6 +158,9 @@ public class TranscodingTask {
         }
         if (payload != null) {
             params.put("payload", payload);
+        }
+        if (outputPathVariables != null) {
+            params.put("output_path_variables", api.getMapper().writeValueAsString(outputPathVariables));
         }
         String responseStr = api.Request("start_encode", params);
         StartEncodeResponse response = null;
