@@ -1,16 +1,3 @@
-/**
- * Copyright (C) 2013 Brightcove Inc. All Rights Reserved. No use, copying or distribution of this
- * work may be made except in accordance with a valid license agreement from Brightcove Inc. This
- * notice must be included on all copies, modifications and derivatives of this work.
- * 
- * Brightcove Inc MAKES NO REPRESENTATIONS OR WARRANTIES ABOUT THE SUITABILITY OF THE SOFTWARE,
- * EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT. BRIGHTCOVE SHALL NOT BE
- * LIABLE FOR ANY DAMAGES SUFFERED BY LICENSEE AS A RESULT OF USING, MODIFYING OR DISTRIBUTING THIS
- * SOFTWARE OR ITS DERIVATIVES.
- * 
- * "Brightcove" is a registered trademark of Brightcove Inc.
- */
 package com.qencode.api.java.client;
 
 import com.qencode.api.java.client.classes.TranscodingTask;
@@ -31,8 +18,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.UnsupportedEncodingException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -90,8 +75,8 @@ public class QencodeApiClient {
         m.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
         m.setSerializationInclusion(JsonSerialize.Inclusion.NON_EMPTY);
         m.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm a z");
-        m.setDateFormat(df);
+        //DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm a z");
+        //m.setDateFormat(df);
         return m;
     }
 
