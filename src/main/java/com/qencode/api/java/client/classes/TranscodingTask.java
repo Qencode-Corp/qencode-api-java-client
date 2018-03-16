@@ -85,6 +85,42 @@ public class TranscodingTask {
     }
 
     /**
+     * Duration from specified start time in original video
+     */
+    private double duration;
+    /**
+     * {@link TranscodingTask#duration}
+     */
+    public double getDuration() {
+        return duration;
+    }
+    /**
+     * {@link TranscodingTask#duration}
+     * @param value
+     */
+    public void setDuration(double value) {
+        this.duration = value;
+    }
+
+    /**
+     * A starting time in original video to make clip from
+     */
+    private double startTime;
+    /**
+     * {@link TranscodingTask#startTime}
+     */
+    public double getStartTime() {
+        return startTime;
+    }
+    /**
+     * {@link TranscodingTask#startTime}
+     * @param value
+     */
+    public void setStartTime(double value) {
+        this.startTime = value;
+    }
+
+    /**
      * Any string data of 1000 characters max length.
      * E.g. you could pass id of your site user uploading the video or any json object.
      */
@@ -103,7 +139,7 @@ public class TranscodingTask {
     }
 
     /**
-     * Output path variables map
+     * Output path variables map (used to set transcoding profile output path placeholder values)
      */
     private Map<String, String> outputPathVariables;
     /**
@@ -150,20 +186,44 @@ public class TranscodingTask {
      */
     public StartEncodeResponse start() throws IOException, QencodeException {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("task_token", taskToken);
         params.put("uri", uri);
         params.put("profiles", transcodingProfiles);
         if (transferMethod != null) {
             params.put("transfer_method", transferMethod);
         }
-        if (payload != null) {
-            params.put("payload", payload);
-        }
         if (outputPathVariables != null) {
             params.put("output_path_variables", api.getMapper().writeValueAsString(outputPathVariables));
         }
-        String responseStr = api.Request("start_encode", params);
-        StartEncodeResponse response = null;
+
+        return _do_request("start_encode", params);
+    }
+
+    /**
+     * Starts transcoding job using custom params
+     * @param taskParams
+     * @return Response of start_encode2 API method
+     * @throws IOException
+     * @throws QencodeException
+     */
+    public StartEncodeResponse startCustom(CustomTranscodingParams taskParams) throws IOException, QencodeException {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("query", api.getMapper().writeValueAsString(taskParams));
+        return _do_request("start_encode2", params);
+    }
+
+    private StartEncodeResponse _do_request(String methodName, Map<String, String> params) throws UnsupportedEncodingException, QencodeException {
+        params.put("task_token", taskToken);
+        if (payload != null) {
+            params.put("payload", payload);
+        }
+        if (startTime > 0) {
+            params.put("start_time", Double.toString(startTime));
+        }
+        if (duration > 0) {
+            params.put("duration", Double.toString(duration));
+        }
+        String responseStr = api.Request(methodName, params);
+        StartEncodeResponse response;
         try {
             response = api.getMapper().readValue(
                     responseStr,
@@ -201,37 +261,4 @@ public class TranscodingTask {
         lastStatus = statuses.get(this.taskToken);
         return lastStatus;
     }
-
-    /*
-    public StartEncodeResponse StartCustom(CustomTranscodingParams taskParams, string payload = null)
-        {
-            var query = new Dictionary<string, CustomTranscodingParams>() { { "query", taskParams } };
-            var query_json = JsonConvert.SerializeObject(query,
-                Formatting.None,
-                new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore});
-
-            var parameters = new Dictionary<string, string>
-            {
-                {"task_token", taskToken },
-                {"query", query_json }
-            };
-            if (payload != null)
-            {
-                parameters.Add("payload", payload);
-            }
-
-            return _do_request("start_encode2", parameters);
-        }
-
-        private StartEncodeResponse _do_request(string methodName, Dictionary<string, string> parameters)
-        {
-            var response = api.Request<StartEncodeResponse>(methodName, parameters) as StartEncodeResponse;
-            this.statusUrl = response.status_url;
-            return response;
-        }
-
-
-    }
-    * */
-
 }
