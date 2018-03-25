@@ -8,6 +8,7 @@ import com.qencode.api.java.client.response.StatusResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class TranscodingTask {
@@ -85,7 +86,7 @@ public class TranscodingTask {
     }
 
     /**
-     * Duration from specified start time in original video
+     * Duration from specified start time in original video, seconds
      */
     private double duration;
     /**
@@ -103,7 +104,7 @@ public class TranscodingTask {
     }
 
     /**
-     * A starting time in original video to make clip from
+     * A starting time in seconds in original video to make clip from
      */
     private double startTime;
     /**
@@ -217,10 +218,10 @@ public class TranscodingTask {
             params.put("payload", payload);
         }
         if (startTime > 0) {
-            params.put("start_time", Double.toString(startTime));
+            params.put("start_time", String.format(Locale.ROOT, "%.4f", startTime));
         }
         if (duration > 0) {
-            params.put("duration", Double.toString(duration));
+            params.put("duration", String.format(Locale.ROOT, "%.4f", duration));
         }
         String responseStr = api.Request(methodName, params);
         StartEncodeResponse response;

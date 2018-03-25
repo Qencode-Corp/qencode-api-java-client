@@ -43,4 +43,26 @@ public class TranscodingTaskStatus {
     public void setImages(List<ImageStatus> images) {
         this.images = images;
     }
+
+    private int error;
+    @JsonProperty("error")
+    public int getError() {
+        return error;
+    }
+    @JsonProperty("error")
+    public void setError(int error) {
+        this.error = error;
+    }
+
+    private String errorDescription;
+    @JsonProperty("error_description")
+    public String getErrorDescription() {
+        return errorDescription;
+    }
+    @JsonProperty("error_description")
+    public void setErrorDescription(String errorDescription) {
+        this.errorDescription = errorDescription;
+    }
+
+
 }
