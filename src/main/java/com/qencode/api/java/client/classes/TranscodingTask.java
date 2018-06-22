@@ -7,9 +7,7 @@ import com.qencode.api.java.client.response.StatusResponse;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 public class TranscodingTask {
     private QencodeApiClient api;
@@ -66,6 +64,18 @@ public class TranscodingTask {
      */
     public void setUri(String uri) {
         this.uri = uri;
+    }
+
+    private List<StitchVideoItem> stitchVideoItems;
+
+    public StitchVideoItem addStitchVideoItem(String url) {
+        StitchVideoItem item = new StitchVideoItem();
+        if (stitchVideoItems == null) {
+            stitchVideoItems = new ArrayList<StitchVideoItem>();
+        }
+        stitchVideoItems.add(item);
+        item.setUrl(url);
+        return item;
     }
 
     /**
@@ -187,7 +197,12 @@ public class TranscodingTask {
      */
     public StartEncodeResponse start() throws IOException, QencodeException {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("uri", uri);
+        if (stitchVideoItems.size() > 0) {
+            params.put("stitch", api.getMapper().writeValueAsString(stitchVideoItems));
+        }
+        else {
+            params.put("uri", uri);
+        }
         params.put("profiles", transcodingProfiles);
         if (transferMethod != null) {
             params.put("transfer_method", transferMethod);

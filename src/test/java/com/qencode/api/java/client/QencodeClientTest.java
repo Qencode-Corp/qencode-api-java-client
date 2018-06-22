@@ -1,15 +1,16 @@
 package com.qencode.api.java.client;
 
-import com.qencode.api.java.client.classes.TranscodingTask;
-import com.qencode.api.java.client.classes.TranscodingTaskStatus;
-import com.qencode.api.java.client.classes.VideoStatus;
-import com.qencode.api.java.client.response.StartEncodeResponse;
+import com.qencode.api.java.client.classes.*;
+import com.qencode.api.java.client.classes.CustomParams.Destination;
+import com.qencode.api.java.client.classes.CustomParams.Format;
+import com.qencode.api.java.client.classes.CustomParams.Libx264_VideoCodecParameters;
+import com.qencode.api.java.client.classes.CustomParams.Stream;
 import org.junit.Test;
 
-import java.io.Console;
-import java.io.UnsupportedEncodingException;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
@@ -17,13 +18,15 @@ import static org.junit.Assert.assertNotNull;
 
 public class QencodeClientTest {
 
-    public static final String TEST_API_KEY = "insert_your_api_key";
-    public static final String TEST_TRANSCODING_PROFILE_ID = "insert_your_transcoding_profile_id";
-    public static final String TEST_VIDEO_URL = "insert_your_video_url";
-    //public static final String TEST_TRANSFER_METHOD_ID = "your_transfer_method_id";
+    public static final String TEST_API_KEY = "your_api_key";
+    public static final String TEST_TRANSCODING_PROFILE_ID = "your_profile_id";
+    public static final String TEST_VIDEO_URL = "https://qa.qencode.com/static/test_mini.mp4";
+    public static final String TEST_VIDEO_URL2 = "https://qa.qencode.com/static/1.mp4";
+    public static final String TEST_TRANSFER_METHOD_ID = "your_transfer_method_id";
 
-    @Test
-    public void testSimpleTranscode() throws QencodeException, UnsupportedEncodingException, InterruptedException {
+    //@Test
+    public void testSimpleTranscode() throws QencodeException, IOException, InterruptedException {
+        System.out.println("Starting job using transcoding profile and transfer method...");
         //QencodeApiClient client = new QencodeApiClient(TEST_API_KEY, "https://api-qa.qencode.com/v1");
         QencodeApiClient client = new QencodeApiClient(TEST_API_KEY);
         assertNotNull(client.getAccessToken());
@@ -34,7 +37,128 @@ public class QencodeClientTest {
         System.out.println("Task Token: " + task.getTaskToken());
         task.setUri(TEST_VIDEO_URL);
         task.setTranscodingProfiles(TEST_TRANSCODING_PROFILE_ID);
+        task.setTransferMethod(TEST_TRANSFER_METHOD_ID);
+        HashMap<String, String> vars = new HashMap<String, String>();
+        vars.put("filename", "mytestfilename.mp4");
+        task.setOutputPathVariables(vars);
+        task.setStartTime(30.0175);
+        task.setDuration(60.245);
         task.start();
+        assertNotNull(task.getStatusUrl());
+        System.out.println("Status URL: " + task.getStatusUrl());
+        TranscodingTaskStatus response = null;
+        NumberFormat formatter = new DecimalFormat("#0.00");
+        do
+        {
+            TimeUnit.SECONDS.sleep(5);
+            System.out.print("Checking status... ");
+            response = task.getStatus();
+            double percent = response.getPercent() == null ? 0 : response.getPercent();
+            System.out.println(response.getStatus() + " - " + formatter.format(percent));
+        } while (!response.getStatus().equals("completed") && response.getError() != 1);
+
+        if (response.getError() == 1) {
+            System.out.println(response.getErrorDescription());
+        }
+
+        assertEquals("completed", response.getStatus());
+
+        for (VideoStatus video: response.getVideos()) {
+            System.out.println(video.getUserTag() + ": " + video.getUrl());
+        }
+        System.out.println("Job done!");
+    }
+
+    @Test
+    public void testStitchTranscode() throws QencodeException, IOException, InterruptedException {
+        System.out.println("Starting job using transcoding profile and transfer method...");
+        //QencodeApiClient client = new QencodeApiClient(TEST_API_KEY, "https://api-qa.qencode.com/v1");
+        QencodeApiClient client = new QencodeApiClient(TEST_API_KEY);
+        assertNotNull(client.getAccessToken());
+        System.out.println("Access Token: " + client.getAccessToken());
+
+        TranscodingTask task = client.CreateTask();
+        assertNotNull(task);
+        System.out.println("Task Token: " + task.getTaskToken());
+
+        StitchVideoItem part1 = task.addStitchVideoItem(TEST_VIDEO_URL);
+        part1.setStartTime(60);
+        part1.setDuration(10);
+        task.addStitchVideoItem(TEST_VIDEO_URL2);
+
+        task.setTranscodingProfiles(TEST_TRANSCODING_PROFILE_ID);
+        task.setTransferMethod(TEST_TRANSFER_METHOD_ID);
+        HashMap<String, String> vars = new HashMap<String, String>();
+        vars.put("filename", "mytestfilename.mp4");
+        task.setOutputPathVariables(vars);
+        task.start();
+        assertNotNull(task.getStatusUrl());
+        System.out.println("Status URL: " + task.getStatusUrl());
+        TranscodingTaskStatus response = null;
+        NumberFormat formatter = new DecimalFormat("#0.00");
+        do
+        {
+            TimeUnit.SECONDS.sleep(5);
+            System.out.print("Checking status... ");
+            response = task.getStatus();
+            double percent = response.getPercent() == null ? 0 : response.getPercent();
+            System.out.println(response.getStatus() + " - " + formatter.format(percent));
+        } while (!response.getStatus().equals("completed") && response.getError() != 1);
+
+        if (response.getError() == 1) {
+            System.out.println(response.getErrorDescription());
+        }
+
+        assertEquals("completed", response.getStatus());
+
+        for (VideoStatus video: response.getVideos()) {
+            System.out.println(video.getUserTag() + ": " + video.getUrl());
+        }
+        System.out.println("Job done!");
+    }
+
+    public static final String TEST_S3_PATH = "s3://s3-eu-west-2.amazonaws.com/qencode-test";
+    public static final String TEST_S3_KEY = "AKIAIKZIPSJ7SDAIWK4A";
+    public static final String TEST_S3_SECRET = "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";
+
+    //@Test
+    public void testCustomTranscode() throws QencodeException, IOException, InterruptedException {
+        System.out.println("Starting job using custom params...");
+        QencodeApiClient client = new QencodeApiClient(TEST_API_KEY);
+        assertNotNull(client.getAccessToken());
+        System.out.println("Access Token: " + client.getAccessToken());
+
+        TranscodingTask task = client.CreateTask();
+        assertNotNull(task);
+        System.out.println("Task Token: " + task.getTaskToken());
+
+        CustomTranscodingParams transcodingParams = new CustomTranscodingParams();
+        transcodingParams.setSource(TEST_VIDEO_URL);
+        Destination destination = new Destination();
+        Format format = new Format();
+        destination.setUrl(TEST_S3_PATH);
+        destination.setKey(TEST_S3_KEY);
+        destination.setSecret(TEST_S3_SECRET);
+        format.setDestination(destination);
+        format.setOutput("advanced_hls");
+
+        Stream stream = new Stream();
+        stream.setSize("1920x1080");
+        stream.setAudioBitrate(128);
+
+        Libx264_VideoCodecParameters vcodecParams = new Libx264_VideoCodecParameters();
+        vcodecParams.setVprofile("baseline");
+        vcodecParams.setLevel(31);
+        vcodecParams.setCoder(0);
+        vcodecParams.setFlags2("-bpyramid+fastpskip-dct8x8");
+        vcodecParams.setPartitions("+parti8x8+parti4x4+partp8x8+partb8x8");
+        vcodecParams.setDirectpred(2);
+        stream.setVideoCodecParameters(vcodecParams);
+        format.getStream().add(stream);
+
+        transcodingParams.getFormat().add(format);
+
+        task.startCustom(transcodingParams);
         assertNotNull(task.getStatusUrl());
         System.out.println("Status URL: " + task.getStatusUrl());
         TranscodingTaskStatus response = null;
@@ -53,6 +177,6 @@ public class QencodeClientTest {
             System.out.println(video.getUserTag() + ": " + video.getUrl());
         }
 
-
+        System.out.println("Job done!");
     }
 }

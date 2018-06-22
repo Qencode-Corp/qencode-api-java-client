@@ -5,6 +5,7 @@ import com.qencode.api.java.client.helpers.QueryStringBuilder;
 import com.qencode.api.java.client.response.AccessTokenResponse;
 import com.qencode.api.java.client.response.CreateTaskResponse;
 import com.qencode.api.java.client.response.QencodeApiResponse;
+
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.PropertyNamingStrategy;
@@ -73,7 +74,7 @@ public class QencodeApiClient {
         m.configure(SerializationConfig.Feature.WRITE_ENUMS_USING_TO_STRING, true);
         m.configure(DeserializationConfig.Feature.READ_ENUMS_USING_TO_STRING, true);
         m.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
-        m.setSerializationInclusion(JsonSerialize.Inclusion.NON_EMPTY);
+        m.setSerializationInclusion(JsonSerialize.Inclusion.NON_DEFAULT);
         m.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         //DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm a z");
         //m.setDateFormat(df);
