@@ -2,7 +2,7 @@
     <servers>
         <server>
             <id>ossrh</id>
-            <username>OSSRH-52805</username>
+            <username>qencode</username>
             <password>JWbs&Ks1NQSl</password>
         </server>
     </servers>
