@@ -86,7 +86,7 @@
                     <localCheckout>true</localCheckout>
                     <pushChanges>false</pushChanges>
                     <mavenExecutorId>forked-path</mavenExecutorId>
-                    <arguments>-Dgpg.passphrase=yaXMdXEOTcTvPUkdITfdbundHotCBrXWvOmzTST9</arguments>
+                    <arguments>-Dmaven.test.skip=true -Dgpg.passphrase=yaXMdXEOTcTvPUkdITfdbundHotCBrXWvOmzTST9</arguments>
                 </configuration>
                 <dependencies>
                     <dependency>
