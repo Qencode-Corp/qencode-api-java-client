@@ -89,8 +89,8 @@
                     <!-- <autoVersionSubmodules>true</autoVersionSubmodules>
                     <useReleaseProfile>false</useReleaseProfile>
                     <releaseProfiles>release</releaseProfiles> -->
-                    <goals>deploy</goals>
-                    <updateReleaseInfo>true</updateReleaseInfo>
+                    <!-- <goals>deploy</goals>
+                    <updateReleaseInfo>true</updateReleaseInfo> -->
                     <arguments>-Dmaven.test.skip=true</arguments>
                 </configuration>
                 <dependencies>
