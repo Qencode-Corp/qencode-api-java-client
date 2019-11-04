@@ -1,9 +1,11 @@
-<settings>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
     <servers>
         <server>
             <id>ossrh</id>
-            <username>OSSRH-52805</username>
-            <password>JWbs&Ks1NQSl</password>
+            <username>qencode</username>
+            <password>JWbs&amp;Ks1NQSl</password>
         </server>
     </servers>
     <profiles>
@@ -17,7 +19,7 @@
             </properties>
         </profile>
     </profiles>
-    <proxies>
+    <!-- <proxies>
         <proxy>
             <id>corp_proxy</id>
             <active>true</active>
@@ -25,6 +27,6 @@
             <host>****</host>
             <port>80</port>
         </proxy>
-    </proxies>
+    </proxies> -->
 </settings>
 
