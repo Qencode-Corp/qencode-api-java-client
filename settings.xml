@@ -15,7 +15,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <gpg.passphrase>yaXMdXEOTcTvPUkdITfdbundHotCBrXWvOmzTST9</gpg.passphrase>
+                <gpg.passphrase>9B7AD9C14A809FB3</gpg.passphrase>
             </properties>
         </profile>
     </profiles>
