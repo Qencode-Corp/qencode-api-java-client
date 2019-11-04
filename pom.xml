@@ -138,7 +138,6 @@
         <additionalparam>-Xdoclint:none</additionalparam>
     </properties>
     <profiles>
-		<!-- GPG Signature on release -->
 		<profile>
 			<id>release-sign-artifacts</id>
 			<activation>
