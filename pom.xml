@@ -4,7 +4,7 @@
     <artifactId>qencode-java-api-client</artifactId>
     <packaging>jar</packaging>
     <name>Qencode Java API Client Library</name>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <description>An API client library for interacting with Qencode</description>
     <url>https://github.com/qencode-dev/qencode-api-java-client</url>
     <build>
@@ -83,9 +83,14 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.3</version>
                 <configuration>
-                    <localCheckout>true</localCheckout>
+                    <!-- <localCheckout>true</localCheckout>
                     <pushChanges>false</pushChanges>
-                    <mavenExecutorId>forked-path</mavenExecutorId>
+                    <mavenExecutorId>forked-path</mavenExecutorId> -->
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <releaseProfiles>release</releaseProfiles>
+                    <goals>deploy</goals>
+                    <updateReleaseInfo>true</updateReleaseInfo>
                     <arguments>-Dmaven.test.skip=true</arguments>
                 </configuration>
                 <dependencies>
