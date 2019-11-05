@@ -88,6 +88,7 @@
                 <configuration>
                     <localCheckout>true</localCheckout>
                     <pushChanges>false</pushChanges>
+                    <goals>deploy</goals>
                     <mavenExecutorId>forked-path</mavenExecutorId>
                     <arguments>-Dgpg.passphrase=9B7AD9C14A809FB3</arguments>
                 </configuration>
