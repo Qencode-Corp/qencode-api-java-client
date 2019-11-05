@@ -4,7 +4,7 @@
     <artifactId>qencode-java-api-client</artifactId>
     <packaging>jar</packaging>
     <name>Qencode Java API Client Library</name>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.1</version>
     <description>An API client library for interacting with Qencode</description>
     <url>https://github.com/qencode-dev/qencode-api-java-client</url>
     <build>
@@ -118,7 +118,7 @@
         <connection>scm:git:git@github.com:qencode-dev/qencode-api-java-client.git</connection>
         <developerConnection>scm:git:git@github.com:qencode-dev/qencode-api-java-client.git</developerConnection>
         <url>https://github.com/qencode-dev/qencode-api-java-client</url>
-        <tag>TAG11</tag>
+        <tag>TAD12</tag>
     </scm>
     <distributionManagement>
         <snapshotRepository>
