@@ -31,6 +31,11 @@ public class Format {
      */
     private List<Stream> stream;
 
+    /**
+     * Option to turn on optimize bitrate mode. Defaults to 0.
+     */
+    private int optimizeBitrate;
+
     public Format()
     {
         stream = new ArrayList<Stream>();
@@ -98,6 +103,22 @@ public class Format {
     @JsonProperty("segment_duration")
     public void setSegmentDuration(int segmentDuration) {
         this.segmentDuration = segmentDuration;
+    }
+
+    /**
+     * {@link Format#optimizeBitrate}
+     */
+    @JsonProperty("optimize_bitrate")
+    public int getOptimizeBitrate() {
+        return optimizeBitrate;
+    }
+
+    /**
+     * {@link Format#optimizeBitrate}
+     */
+    @JsonProperty("optimize_bitrate")
+    public void setOptimizeBitrate(int optimizeBitrate) {
+        this.optimizeBitrate = optimizeBitrate;
     }
 
     /**

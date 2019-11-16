@@ -94,6 +94,11 @@ public class Stream {
     private String audioCodec;
 
     /**
+     * Option to turn on optimize bitrate mode. Defaults to 0.
+     */
+    private int optimizeBitrate;
+
+    /**
      * {@link Stream#size}
      */
     public String getSize() {
@@ -346,5 +351,21 @@ public class Stream {
     @JsonProperty("audio_codec")
     public void setAudioCodec(String audioCodec) {
         this.audioCodec = audioCodec;
+    }
+
+    /**
+     * {@link Stream#optimizeBitrate}
+     */
+    @JsonProperty("optimize_bitrate")
+    public int getOptimizeBitrate() {
+        return optimizeBitrate;
+    }
+
+    /**
+     * {@link Stream#optimizeBitrate}
+     */
+    @JsonProperty("optimize_bitrate")
+    public void setOptimizeBitrate(int optimizeBitrate) {
+        this.optimizeBitrate = optimizeBitrate;
     }
 }

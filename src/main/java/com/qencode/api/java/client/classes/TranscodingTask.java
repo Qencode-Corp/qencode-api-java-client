@@ -197,7 +197,7 @@ public class TranscodingTask {
      */
     public StartEncodeResponse start() throws IOException, QencodeException {
         Map<String, String> params = new HashMap<String, String>();
-        if (stitchVideoItems.size() > 0) {
+        if (stitchVideoItems != null && stitchVideoItems.size() > 0) {
             params.put("stitch", api.getMapper().writeValueAsString(stitchVideoItems));
         }
         else {
