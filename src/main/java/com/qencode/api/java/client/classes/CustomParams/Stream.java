@@ -93,8 +93,6 @@ public class Stream {
      */
     private String audioCodec;
 
-    private int optimizeBitrate;
-
     /**
      * Option to turn on optimize bitrate mode. Defaults to 0.
      */
