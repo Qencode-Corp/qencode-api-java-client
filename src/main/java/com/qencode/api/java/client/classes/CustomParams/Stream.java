@@ -96,6 +96,11 @@ public class Stream {
     private int optimizeBitrate;
 
     /**
+     * Option to turn on optimize bitrate mode. Defaults to 0.
+     */
+    private int optimizeBitrate;
+
+    /**
      * {@link Stream#size}
      */
     public String getSize() {

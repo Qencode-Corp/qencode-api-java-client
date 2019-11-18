@@ -31,6 +31,9 @@ public class Format {
      */
     private List<Stream> stream;
 
+    /**
+     * Option to turn on optimize bitrate mode. Defaults to 0.
+     */
     private int optimizeBitrate;
 
     /**
@@ -495,5 +498,5 @@ public class Format {
     public void setAudioCodec(String audioCodec) {
         this.audioCodec = audioCodec;
     }
-    
+
 }
