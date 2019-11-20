@@ -14,6 +14,16 @@ public class TranscodingTaskStatus {
         this.status = status;
     }
 
+    private String statusUrl;
+    @JsonProperty("status_url")
+    public String getStatusUrl() {
+        return statusUrl;
+    }
+    @JsonProperty("status_url")
+    public void setStatusUrl(String statusUrl) {
+        this.statusUrl = statusUrl;
+    }
+
     private Float percent;
     @JsonProperty("percent")
     public Float getPercent() {
