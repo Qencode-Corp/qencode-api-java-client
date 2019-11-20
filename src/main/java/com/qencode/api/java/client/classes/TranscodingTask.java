@@ -223,7 +223,7 @@ public class TranscodingTask {
      */
     public StartEncodeResponse startCustom(CustomTranscodingParams taskParams) throws IOException, QencodeException {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("query", api.getMapper().writeValueAsString(taskParams));
+        params.put("query", "{\"query\": " + api.getMapper().writeValueAsString(taskParams) + "}");
         return _do_request("start_encode2", params);
     }
 
