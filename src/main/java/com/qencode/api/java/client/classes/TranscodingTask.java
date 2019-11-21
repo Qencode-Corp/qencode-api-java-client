@@ -276,7 +276,10 @@ public class TranscodingTask {
         Map<String, TranscodingTaskStatus> statuses = response.getStatuses();
         lastStatus = statuses.get(this.taskToken);
         if (lastStatus != null) {
-            this.statusUrl = lastStatus.getStatusUrl();
+            String statusUrl = lastStatus.getStatusUrl();
+            if (statusUrl != null) {
+                this.statusUrl = statusUrl;
+            }
         }
         return lastStatus;
     }
