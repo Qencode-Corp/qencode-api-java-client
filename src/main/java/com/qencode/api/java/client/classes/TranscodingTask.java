@@ -275,7 +275,9 @@ public class TranscodingTask {
         //TODO: fallback to /v1/status
         Map<String, TranscodingTaskStatus> statuses = response.getStatuses();
         lastStatus = statuses.get(this.taskToken);
-        this.statusUrl = lastStatus.getStatusUrl();
+        if (lastStatus != null) {
+            this.statusUrl = lastStatus.getStatusUrl();
+        }
         return lastStatus;
     }
 }
