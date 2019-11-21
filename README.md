@@ -10,9 +10,9 @@ Add the library as a dependancy to your project.
 If you're using Maven, add this to your pom.xml file:
 
         <dependency>
-              <groupId>com.qencode.api.java.client</groupId>
-              <artifactId>qencode-java</artifactId>
-              <version>1.0.0</version>
+              <groupId>com.qencode.java.api.client</groupId>
+              <artifactId>qencode-java-api-client</artifactId>
+              <version>1.0.10</version>
         </dependency>
 
 
