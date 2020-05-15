@@ -17,6 +17,11 @@ public class Destination {
     private String secret;
 
     /**
+     * Permissions, e.g. 'public-read'
+     */
+    private String permissions;
+
+    /**
      * {@link Destination#url}
      */
     public String getUrl() {
@@ -57,4 +62,20 @@ public class Destination {
     public void setSecret(String secret) {
         this.secret = secret;
     }
+
+    /**
+     * {@link Destination#permissions}
+     */
+    public String getPermissions() {
+        return permissions;
+    }
+
+    /**
+     * {@link Destination#permissions}
+     */
+    public void setPermissions(String permissions) {
+        this.permissions = permissions;
+    }
+
+
 }

@@ -12,7 +12,7 @@ If you're using Maven, add this to your pom.xml file:
         <dependency>
               <groupId>com.qencode.java.api.client</groupId>
               <artifactId>qencode-java-api-client</artifactId>
-              <version>1.0.10</version>
+              <version>1.0.13</version>
         </dependency>
 
 

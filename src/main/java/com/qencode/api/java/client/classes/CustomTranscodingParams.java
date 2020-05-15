@@ -42,6 +42,24 @@ public class CustomTranscodingParams {
         this.format = format;
     }
 
+    /**
+     * CallbackUrl - URL of an endpoint on your server to handle task callbacks
+     */
+    private String callback_url;
+
+    /**
+     * {@link CustomTranscodingParams#callback_url}
+     */
+    public String getCallbackUrl() {
+        return callback_url;
+    }
+    /**
+     * {@link CustomTranscodingParams#callback_url}
+     */
+    public void setCallbackUrl(String callback_url) {
+        this.callback_url = callback_url;
+    }
+    
     public CustomTranscodingParams()
     {
         format = new ArrayList<Format>();
