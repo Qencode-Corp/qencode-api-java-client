@@ -13,6 +13,19 @@ public class StorageInfo {
         this.format = format;
     }
 
+
+    private String bucket;
+    @JsonProperty("bucket")
+    public String getBucket() {
+        return bucket;
+    }
+    @JsonProperty("bucket")
+    public void setBucket(String bucket) {
+        this.bucket = bucket;
+    }
+
+
+
     private String host;
     @JsonProperty("host")
     public String getHost() {
@@ -22,6 +35,28 @@ public class StorageInfo {
     public void setHost(String host) {
         this.host = host;
     }
+
+
+    private String key;
+    @JsonProperty("key")
+    public String getkey() {
+        return key;
+    }
+    @JsonProperty("key")
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    private String scheme;
+    @JsonProperty("scheme")
+    public String getScheme() {
+        return scheme;
+    }
+    @JsonProperty("scheme")
+    public void setScheme(String scheme) {
+        this.scheme = scheme;
+    }
+
 
     private String path;
     @JsonProperty("path")
@@ -42,4 +77,17 @@ public class StorageInfo {
     public void setType(String type) {
         this.type = type;
     }
+
+
+    private int port;
+    @JsonProperty("port")
+    public int getPort() {
+        return port;
+    }
+    @JsonProperty("port")
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    
 }

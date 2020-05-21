@@ -268,7 +268,7 @@ public class QencodeApiClient {
             throw new QencodeException(
                     "Unable to deserialize CreateTaskResponse as JSON", e);
         }
-        return new TranscodingTask(this, response.getTaskToken());
+        return new TranscodingTask(this, response.getTaskToken(), response.getUploadUrl());
     }
 
 }

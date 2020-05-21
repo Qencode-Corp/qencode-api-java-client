@@ -75,4 +75,38 @@ public class TranscodingTaskStatus {
     }
 
 
+
+    private String sourceSize;
+    @JsonProperty("source_size")
+    public String getSourceSize() {
+        return sourceSize;
+    }
+    @JsonProperty("source_size")
+    public void setSourceSize(String sourceSize) {
+        this.sourceSize = sourceSize;
+    }
+
+    private List<AudiosStatus> audios;
+    @JsonProperty("audios")
+    public List<AudiosStatus> getAudios() {
+        return audios;
+    }
+    @JsonProperty("audios")
+    public void setAudios(List<AudiosStatus> audios) {
+        this.audios = audios;
+    }
+
+    private Double duration;
+    @JsonProperty("duration")
+    public Double getDuration() {
+        return duration;
+    }
+    @JsonProperty("duration")
+    public void setDuration(Double duration) {
+        this.duration = duration;
+    }
+
+
+
+
 }

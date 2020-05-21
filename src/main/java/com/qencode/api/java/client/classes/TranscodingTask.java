@@ -21,6 +21,16 @@ public class TranscodingTask {
         return taskToken;
     }
 
+    private String uploadUrl;
+
+    /**
+     * @return Task token value
+     */
+    public String getUploadUrl() {
+        return uploadUrl;
+    }
+
+
     private String statusUrl;
 
     /**
@@ -181,12 +191,14 @@ public class TranscodingTask {
      * Constructs new TranscodingTask object
      * @param api reference to QencodeApiClient
      * @param taskToken task token value obtained from create_task API method
+     * @param uploadUrl upload url
      */
-    public TranscodingTask(QencodeApiClient api, String taskToken)
+    public TranscodingTask(QencodeApiClient api, String taskToken, String uploadUrl)
     {
         this.api = api;
         this.taskToken = taskToken;
         this.statusUrl = null;
+        this.uploadUrl = uploadUrl;
     }
 
     /**
@@ -262,6 +274,7 @@ public class TranscodingTask {
         Map<String, String> params = new HashMap<String, String>();
         params.put("task_tokens[]", taskToken);
         String responseStr = api.Request(this.statusUrl, params);
+        responseStr = responseStr.replace("\"None\"", "null");
         StatusResponse response = null;
         try {
             response = api.getMapper().readValue(
