@@ -201,7 +201,13 @@ public class TranscodingTask {
         this.uploadUrl = uploadUrl;
     }
 
-    /**
+    public TranscodingTask(QencodeApiClient client, String taskToken2,String statusUrl, String uploadUrl) {
+        this.api = client;
+        this.taskToken = taskToken2;
+        this.statusUrl = statusUrl;
+        this.uploadUrl = statusUrl;
+	}
+	/**
      * Starts transcoding job using specified transcoding profile or list of profiles
      * @return Response of start_encode API method
      * @throws UnsupportedEncodingException
