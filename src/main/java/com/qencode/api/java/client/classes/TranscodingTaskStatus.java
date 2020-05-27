@@ -76,13 +76,13 @@ public class TranscodingTaskStatus {
 
 
 
-    private String sourceSize;
+    private Double sourceSize;
     @JsonProperty("source_size")
-    public String getSourceSize() {
+    public Double getSourceSize() {
         return sourceSize;
     }
     @JsonProperty("source_size")
-    public void setSourceSize(String sourceSize) {
+    public void setSourceSize(Double sourceSize) {
         this.sourceSize = sourceSize;
     }
 
