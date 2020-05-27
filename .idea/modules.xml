@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/qencode-api-java-client.iml" filepath="$PROJECT_DIR$/.idea/qencode-api-java-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/qencode-java-api-client.iml" filepath="$PROJECT_DIR$/qencode-java-api-client.iml" />
     </modules>
   </component>
 </project>

@@ -129,6 +129,7 @@ public class QencodeClientTest {
 
         CustomTranscodingParams transcodingParams = new CustomTranscodingParams();
         transcodingParams.setSource(TEST_VIDEO_URL);
+        transcodingParams.setCallbackUrl("https://video-transcoder.online/test_callback.php");
         Destination destination = new Destination();
         Format format = new Format();
         destination.setUrl(TEST_S3_PATH);
