@@ -6,7 +6,6 @@ import com.qencode.api.java.client.classes.CustomParams.Format;
 import com.qencode.api.java.client.classes.CustomParams.Libx264_VideoCodecParameters;
 import com.qencode.api.java.client.classes.CustomParams.Stream;
 import org.junit.Test;
-
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -16,18 +15,19 @@ import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class QencodeClientTest {
 
+public class QencodeClientTest {
     public static final String TEST_API_KEY = "5a2a846a26ace";
     public static final String TEST_TRANSCODING_PROFILE_ID = "your_profile_id";
     public static final String TEST_VIDEO_URL = "https://nyc3.s3.qencode.com/qencode/bbb_30s.mp4";
     public static final String TEST_VIDEO_URL2 = "https://qa.qencode.com/static/1.mp4";
     public static final String TEST_TRANSFER_METHOD_ID = "your_transfer_method_id";
 
-    //@Test
+    // @Test
     public void testSimpleTranscode() throws QencodeException, IOException, InterruptedException {
         System.out.println("Starting job using transcoding profile and transfer method...");
-        //QencodeApiClient client = new QencodeApiClient(TEST_API_KEY, "https://api-qa.qencode.com/v1");
+        // QencodeApiClient client = new QencodeApiClient(TEST_API_KEY,
+        // "https://api-qa.qencode.com/v1");
         QencodeApiClient client = new QencodeApiClient(TEST_API_KEY);
         assertNotNull(client.getAccessToken());
         System.out.println("Access Token: " + client.getAccessToken());
@@ -48,8 +48,7 @@ public class QencodeClientTest {
         System.out.println("Status URL: " + task.getStatusUrl());
         TranscodingTaskStatus response = null;
         NumberFormat formatter = new DecimalFormat("#0.00");
-        do
-        {
+        do {
             TimeUnit.SECONDS.sleep(5);
             System.out.print("Checking status... ");
             response = task.getStatus();
@@ -63,16 +62,17 @@ public class QencodeClientTest {
 
         assertEquals("completed", response.getStatus());
 
-        for (VideoStatus video: response.getVideos()) {
+        for (VideoStatus video : response.getVideos()) {
             System.out.println(video.getUserTag() + ": " + video.getUrl());
         }
         System.out.println("Job done!");
     }
 
-    //@Test
+    // @Test
     public void testStitchTranscode() throws QencodeException, IOException, InterruptedException {
         System.out.println("Starting job using transcoding profile and transfer method...");
-        //QencodeApiClient client = new QencodeApiClient(TEST_API_KEY, "https://api-qa.qencode.com/v1");
+        // QencodeApiClient client = new QencodeApiClient(TEST_API_KEY,
+        // "https://api-qa.qencode.com/v1");
         QencodeApiClient client = new QencodeApiClient(TEST_API_KEY);
         assertNotNull(client.getAccessToken());
         System.out.println("Access Token: " + client.getAccessToken());
@@ -96,8 +96,7 @@ public class QencodeClientTest {
         System.out.println("Status URL: " + task.getStatusUrl());
         TranscodingTaskStatus response = null;
         NumberFormat formatter = new DecimalFormat("#0.00");
-        do
-        {
+        do {
             TimeUnit.SECONDS.sleep(5);
             System.out.print("Checking status... ");
             response = task.getStatus();
@@ -111,7 +110,7 @@ public class QencodeClientTest {
 
         assertEquals("completed", response.getStatus());
 
-        for (VideoStatus video: response.getVideos()) {
+        for (VideoStatus video : response.getVideos()) {
             System.out.println(video.getUserTag() + ": " + video.getUrl());
         }
         System.out.println("Job done!");
@@ -144,18 +143,17 @@ public class QencodeClientTest {
 
         TranscodingTaskStatus response = null;
         String statusUrl = null;
-        do
-        {
+        do {
             response = task.getStatus();
             statusUrl = response.getStatusUrl();
             if (statusUrl != null) {
                 System.out.println("status url: " + statusUrl);
-            }
-            else {
+            } else {
                 TimeUnit.SECONDS.sleep(5);
             }
         } while (statusUrl == null);
-        System.out.println("Use status url shown above to check status of your job as described at https://docs.qencode.com/#010_060");
+        System.out.println(
+                "Use status url shown above to check status of your job as described at https://docs.qencode.com/#010_060");
 
         String status = null;
         do {
@@ -166,8 +164,7 @@ public class QencodeClientTest {
             if (status.equals("encoding")) {
                 Float percent = response.getPercent();
                 System.out.println(" " + percent.toString() + "%");
-            }
-            else {
+            } else {
                 System.out.println();
             }
             TimeUnit.SECONDS.sleep(5);
@@ -177,7 +174,7 @@ public class QencodeClientTest {
         }
     }
 
-    //@Test
+    // @Test
     public void testCustomTranscode() throws QencodeException, IOException, InterruptedException {
         System.out.println("Starting job using custom params...");
         QencodeApiClient client = new QencodeApiClient(TEST_API_KEY);
@@ -220,8 +217,7 @@ public class QencodeClientTest {
         System.out.println("Status URL: " + task.getStatusUrl());
         TranscodingTaskStatus response = null;
         NumberFormat formatter = new DecimalFormat("#0.00");
-        do
-        {
+        do {
             TimeUnit.SECONDS.sleep(5);
             System.out.print("Checking status... ");
             response = task.getStatus();
@@ -230,10 +226,69 @@ public class QencodeClientTest {
 
         assertEquals(response.getStatus(), "completed");
 
-        for (VideoStatus video: response.getVideos()) {
+        for (VideoStatus video : response.getVideos()) {
             System.out.println(video.getUserTag() + ": " + video.getUrl());
         }
 
         System.out.println("Job done!");
     }
+
+
+    @Test
+    public void testContsr() throws QencodeException, IOException, InterruptedException {
+        final QencodeApiClient client = new QencodeApiClient(TEST_API_KEY);
+        
+        final TranscodingTask task_old = client.CreateTask();
+
+
+        final CustomTranscodingParams transcodingParams = new CustomTranscodingParams();
+        transcodingParams.setSource(TEST_VIDEO_URL);
+        final Format format = new Format();
+        format.setOutput("mp4");
+        format.setHeight(320);
+        format.setOptimizeBitrate(1);
+        transcodingParams.getFormat().add(format);
+        task_old.startCustom(transcodingParams);
+        final String uploadUrl = task_old.getUploadUrl();
+        final String taskToken = task_old.getTaskToken();
+        final String statusUrl = task_old.getStatusUrl();
+        final TranscodingTask task = new TranscodingTask(client, taskToken, statusUrl, uploadUrl);
+
+        System.out.println("Task Token: " + task.getTaskToken());
+
+        TranscodingTaskStatus response = null;
+        String newStatusUrl = null;
+        do
+        {
+            response = task.getStatus();
+            newStatusUrl = response.getStatusUrl();
+            if (statusUrl != null) {
+                System.out.println("status url: " + newStatusUrl);
+            }
+            else {
+                TimeUnit.SECONDS.sleep(5);
+            }
+        } while (newStatusUrl == null);
+        System.out.println("Use status url shown above to check status of your job as described at https://docs.qencode.com/#010_060");
+
+        String status = null;
+        do {
+            System.out.print("Checking job status... ");
+            response = task.getStatus();
+            status = response.getStatus();
+            System.out.print(status);
+            if (status.equals("encoding")) {
+                final Float percent = response.getPercent();
+                System.out.println(" " + percent.toString() + "%");
+            }
+            else {
+                System.out.println();
+            }
+            TimeUnit.SECONDS.sleep(5);
+        } while (!status.equals("completed") && response.getError() != 1);
+        if (response.getError() == 1) {
+            System.out.println(response.getErrorDescription());
+        }
+    }
+
 }
