@@ -24,7 +24,7 @@ import static org.junit.Assert.assertNotNull;
 
 
 public class QencodeClientTest {
-    public static final String TEST_API_KEY = "5a2a846a26ace";
+    public static final String TEST_API_KEY = "your-api-key-here";
     public static final String TEST_VIDEO_URL = "https://nyc3.s3.qencode.com/qencode/bbb_30s.mp4";
     public static final String TEST_DIRECTORY = "/src/test/java/com/qencode/api/java/client";
 
