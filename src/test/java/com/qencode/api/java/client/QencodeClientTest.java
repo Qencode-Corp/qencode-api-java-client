@@ -1,22 +1,14 @@
 package com.qencode.api.java.client;
 
-import com.qencode.api.java.client.classes.*;
-import com.qencode.api.java.client.classes.CustomParams.Destination;
-import com.qencode.api.java.client.classes.CustomParams.Format;
-import com.qencode.api.java.client.classes.CustomParams.Libx264_VideoCodecParameters;
-import com.qencode.api.java.client.classes.CustomParams.Stream;
+import com.qencode.api.java.client.classes.TranscodingTask;
+import com.qencode.api.java.client.classes.TranscodingTaskStatus;
 import org.json.simple.parser.ParseException;
 import org.junit.Test;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
@@ -29,8 +21,8 @@ public class QencodeClientTest {
     public static final String TEST_DIRECTORY = "/src/test/java/com/qencode/api/java/client";
 
     private void runJobAndCheckStatus(TranscodingTask task) throws UnsupportedEncodingException, QencodeException, InterruptedException {
-        TranscodingTaskStatus response = null;
-        String status = null;
+        TranscodingTaskStatus response;
+        String status;
         do {
             System.out.print("Checking job status... ");
             response = task.getStatus();
