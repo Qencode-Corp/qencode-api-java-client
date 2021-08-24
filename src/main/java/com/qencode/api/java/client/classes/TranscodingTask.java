@@ -6,6 +6,10 @@ import com.qencode.api.java.client.response.StartEncodeResponse;
 import com.qencode.api.java.client.response.StatusResponse;
 
 import java.io.IOException;
+import java.io.FileReader;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
@@ -242,6 +246,23 @@ public class TranscodingTask {
     public StartEncodeResponse startCustom(CustomTranscodingParams taskParams) throws IOException, QencodeException {
         Map<String, String> params = new HashMap<String, String>();
         params.put("query", "{\"query\": " + api.getMapper().writeValueAsString(taskParams) + "}");
+        return _do_request("start_encode2", params);
+    }
+
+    public StartEncodeResponse startCustomWithJSON(String jsonQuery) throws IOException, ParseException, QencodeException {
+        Map<String, String> params = new HashMap<String, String>();
+        JSONParser jsonParser = new JSONParser();
+        JSONObject query = (JSONObject) jsonParser.parse(jsonQuery);
+        params.put("query", query.toJSONString());
+        return _do_request("start_encode2", params);
+    }
+
+    public StartEncodeResponse startCustomWithJSONFile(String jsonQueryFile) throws IOException, ParseException, QencodeException {
+        Map<String, String> params = new HashMap<String, String>();
+        JSONParser jsonParser = new JSONParser();
+        FileReader reader = new FileReader(jsonQueryFile);
+        JSONObject query = (JSONObject) jsonParser.parse(reader);
+        params.put("query", query.toJSONString());
         return _do_request("start_encode2", params);
     }
 

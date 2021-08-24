@@ -1,0 +1,13 @@
+{
+  "query": {
+    "source": "{source}",
+    "encoder_version": 2,
+    "format": [
+      {
+        "output": "mp4",
+        "height": "720",
+        "duration": "20"
+      }
+    ]
+  }
+}
